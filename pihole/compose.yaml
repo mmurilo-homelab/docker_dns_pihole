@@ -1,0 +1,61 @@
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:${pihole_version:-latest}
+    ports:
+      - 53:53/tcp
+      - 53:53/udp
+      - 80:80/tcp
+      - 443:443/tcp
+    environment:
+      TZ: America/Vancouver
+      FTLCONF_webserver_api_password: null #${password}
+      FTLCONF_dns_listeningMode: all
+      FTLCONF_dns_dnssec: true
+      FTLCONF_dns_upstreams: cloudflared #5353
+      FTLCONF_ntp_ipv4_active: false
+      FTLCONF_ntp_ipv6_active: false
+      FTLCONF_ntp_sync_active: false
+      FTLCONF_dns_expandHosts: true
+      FTLCONF_dns_domain: null
+      FTLCONF_dns_hosts: null
+      FTLCONF_dns_cnameRecords: null
+      # FTLCONF_dns_hosts: #|
+      #   192.168.101.220 nas.home.vitoriorocha.net
+      #   192.168.101.253 pi2.home.vitoriorocha.net
+      # FTLCONF_dns_cnameRecords: #|
+      #   jellyfin.home.vitoriorocha.net,nas.home.vitoriorocha.net
+      #   pihole-02.home.vitoriorocha.net,pi2.home.vitoriorocha.net
+    volumes:
+      - ./config:/etc/pihole
+    cap_add:
+    #  - SYS_TIME
+      - SYS_NICE
+    restart: unless-stopped
+    networks:
+      - pihole
+  cloudflared:
+    image: cloudflare/cloudflared:${cloudflared_version:-latest}
+    container_name: cloudflared
+    restart: unless-stopped
+    #ports:
+    #  - 5353:5353/udp
+    #  - 5353:5353/tcp
+    command:
+      - proxy-dns
+    networks:
+      - pihole
+    environment:
+      #TUNNEL_DNS_PORT: 53
+      #TUNNEL_DNS_ADDRESS: 0.0.0.0
+      TUNNEL_DNS_ADDRESS: cloudflared
+      TUNNEL_DNS_UPSTREAM: >
+        https://family.cloudflare-dns.com/dns-query,
+        https://dns.quad9.net/dns-query
+x-dockge:
+  urls:
+    - https://github.com/pi-hole/docker-pi-hole/
+    - https://docs.pi-hole.net/
+    - https://fig.io/manual/cloudflared/proxy-dns
+networks:
+  pihole: {}

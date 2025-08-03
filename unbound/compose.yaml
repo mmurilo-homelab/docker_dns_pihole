@@ -1,0 +1,15 @@
+services:
+  unbound:
+    image: alpinelinux/unbound:latest
+    restart: unless-stopped
+    ports:
+      - 5335:5335/tcp
+      - 5335:5335/udp
+    volumes:
+      - ./unbound.conf:/etc/unbound/unbound.conf
+networks:
+  unbound: {}
+x-dockge:
+  urls:
+    - https://wiki.alpinelinux.org/wiki/Setting_up_unbound_DNS_server
+    - https://unbound.docs.nlnetlabs.nl/en/latest/index.html
