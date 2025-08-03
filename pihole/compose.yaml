@@ -9,10 +9,10 @@ services:
       - 443:443/tcp
     environment:
       TZ: America/Vancouver
-      FTLCONF_webserver_api_password: null #${password}
+      FTLCONF_webserver_api_password: null
       FTLCONF_dns_listeningMode: all
       FTLCONF_dns_dnssec: true
-      FTLCONF_dns_upstreams: cloudflared #5353
+      FTLCONF_dns_upstreams: cloudflared
       FTLCONF_ntp_ipv4_active: false
       FTLCONF_ntp_ipv6_active: false
       FTLCONF_ntp_sync_active: false
@@ -20,12 +20,6 @@ services:
       FTLCONF_dns_domain: null
       FTLCONF_dns_hosts: null
       FTLCONF_dns_cnameRecords: null
-      # FTLCONF_dns_hosts: #|
-      #   192.168.101.220 nas.home.vitoriorocha.net
-      #   192.168.101.253 pi2.home.vitoriorocha.net
-      # FTLCONF_dns_cnameRecords: #|
-      #   jellyfin.home.vitoriorocha.net,nas.home.vitoriorocha.net
-      #   pihole-02.home.vitoriorocha.net,pi2.home.vitoriorocha.net
     volumes:
       - ./config:/etc/pihole
     cap_add:
@@ -47,7 +41,6 @@ services:
       - pihole
     environment:
       #TUNNEL_DNS_PORT: 53
-      #TUNNEL_DNS_ADDRESS: 0.0.0.0
       TUNNEL_DNS_ADDRESS: cloudflared
       TUNNEL_DNS_UPSTREAM: >
         https://family.cloudflare-dns.com/dns-query,
