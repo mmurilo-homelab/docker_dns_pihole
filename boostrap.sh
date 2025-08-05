@@ -16,11 +16,6 @@ echo "##########   install docker   #################"
 curl -fsSL https://get.docker.com | sh
 
 echo "#######################################################################"
-echo "##################   prepare path #####################################"
-mkdir -p $stacks_path
-cd $stacks_path
-
-echo "#######################################################################"
 echo "##################   clone repo   #####################################"
-git clone https://github.com/mmurilo-homelab/docker_dns_pihole.git 
-
+mkdir -p $stacks_path
+git clone https://github.com/mmurilo-homelab/docker_dns_pihole.git $stacks_path
