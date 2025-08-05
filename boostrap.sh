@@ -22,5 +22,5 @@ cd $stacks_path
 
 echo "#######################################################################"
 echo "##################   clone repo   #####################################"
-#git clone 
+git clone https://github.com/mmurilo-homelab/docker_dns_pihole.git 
 
