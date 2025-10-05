@@ -18,4 +18,7 @@ curl -fsSL https://get.docker.com | sh
 echo "#######################################################################"
 echo "##################   clone repo   #####################################"
 mkdir -p $stacks_path
+chgrp -R docker $stacks_path
 git clone https://github.com/mmurilo-homelab/docker_dns_pihole.git $stacks_path
+
+docker compose --project-directory $stacks_path/dockge/ up -d
