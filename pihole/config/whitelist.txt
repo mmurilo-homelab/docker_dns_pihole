@@ -1,0 +1,8 @@
+ichnaea.netflix.com
+api.townsq.io
+tags.tiqcdn.com
+cdn.onesignal.com
+c2.taboola.com
+t.yesware.com
+learn.cisecurity.org
+device-metrics-us.amazon.com
