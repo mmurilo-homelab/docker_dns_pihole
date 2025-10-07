@@ -10,7 +10,7 @@ apt update
 apt full-upgrade -y
 
 echo "##########   install extra packages ###########"
-apt install -y curl git neovim
+apt install -y curl git neovim unattended-upgrades
 
 echo "##########   install docker   #################"
 curl -fsSL https://get.docker.com | sh
